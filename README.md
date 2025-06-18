@@ -8,7 +8,7 @@ Code of SpecSolver: Solving Spatial-Spectral Fusion via Semantic Transformer
 | Dataset  | Download Link                                                                                          | Extraction Code |
 |----------|--------------------------------------------------------------------------------------------------------|-----------------|
 | CAVE     | [CAVE Dataset](https://pan.baidu.com/share/init?surl=CXCJfzp2yfvJZ9Lg2i-mNA)                           | `dju8`          |
-| Harvard  | [Harvard Dataset](#) <!-- Add actual link here -->                                                     | —               |
+| Harvard  | [Harvard Dataset](https://pan.quark.cn/s/2d9032ebafaf)                                                 | `aque`          |
 
 
 ## 😊 Acknowledgements
