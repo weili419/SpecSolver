@@ -1,0 +1,271 @@
+2025-04-03 08:30:59,806 - LOG - INFO - =======Option used=======
+2025-04-03 08:32:49,320 - LOG - INFO - Epoch: 0 最高PSNR: 0.0000000
+2025-04-03 08:34:45,260 - LOG - INFO - =======Option used=======
+2025-04-03 08:41:03,302 - LOG - INFO - =======Option used=======
+2025-04-03 08:44:41,638 - LOG - INFO - Epoch: 0/1000 average psnr: 40.1077324  bestpsnr: 40.1077324, bestepoch: 0
+2025-04-03 08:48:49,966 - LOG - INFO - Epoch: 2/1000 average psnr: 43.5120792  bestpsnr: 43.5120792, bestepoch: 2
+2025-04-03 08:53:05,550 - LOG - INFO - Epoch: 4/1000 average psnr: 44.7074993  bestpsnr: 44.7074993, bestepoch: 4
+2025-04-03 08:57:04,711 - LOG - INFO - Epoch: 6/1000 average psnr: 44.9637928  bestpsnr: 44.9637928, bestepoch: 6
+2025-04-03 09:01:10,430 - LOG - INFO - Epoch: 8/1000 average psnr: 45.9349201  bestpsnr: 45.9349201, bestepoch: 8
+2025-04-03 09:05:21,022 - LOG - INFO - Epoch: 10/1000 average psnr: 44.9859993  bestpsnr: 45.9349201, bestepoch: 8
+2025-04-03 09:09:31,201 - LOG - INFO - Epoch: 12/1000 average psnr: 46.8351795  bestpsnr: 46.8351795, bestepoch: 12
+2025-04-03 09:13:52,360 - LOG - INFO - Epoch: 14/1000 average psnr: 46.4488144  bestpsnr: 46.8351795, bestepoch: 12
+2025-04-03 09:17:57,713 - LOG - INFO - Epoch: 16/1000 average psnr: 47.2159748  bestpsnr: 47.2159748, bestepoch: 16
+2025-04-03 09:21:56,561 - LOG - INFO - Epoch: 18/1000 average psnr: 47.4484905  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:26:08,828 - LOG - INFO - Epoch: 20/1000 average psnr: 45.9923817  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:30:18,893 - LOG - INFO - Epoch: 22/1000 average psnr: 46.4798859  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:34:21,989 - LOG - INFO - Epoch: 24/1000 average psnr: 46.1644669  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:38:25,651 - LOG - INFO - Epoch: 26/1000 average psnr: 47.0019119  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:42:33,528 - LOG - INFO - Epoch: 28/1000 average psnr: 47.1382332  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:46:37,804 - LOG - INFO - Epoch: 30/1000 average psnr: 47.1412113  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:50:55,908 - LOG - INFO - Epoch: 32/1000 average psnr: 47.3033302  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:54:56,513 - LOG - INFO - Epoch: 34/1000 average psnr: 47.1506138  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 09:59:03,513 - LOG - INFO - Epoch: 36/1000 average psnr: 46.8745880  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 10:03:15,240 - LOG - INFO - Epoch: 38/1000 average psnr: 47.4002094  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 10:07:16,758 - LOG - INFO - Epoch: 40/1000 average psnr: 46.8512089  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 10:11:35,205 - LOG - INFO - Epoch: 42/1000 average psnr: 47.3421112  bestpsnr: 47.4484905, bestepoch: 18
+2025-04-03 10:15:46,155 - LOG - INFO - Epoch: 44/1000 average psnr: 47.7586250  bestpsnr: 47.7586250, bestepoch: 44
+2025-04-03 10:19:51,781 - LOG - INFO - Epoch: 46/1000 average psnr: 47.6112007  bestpsnr: 47.7586250, bestepoch: 44
+2025-04-03 10:24:03,038 - LOG - INFO - Epoch: 48/1000 average psnr: 47.5469715  bestpsnr: 47.7586250, bestepoch: 44
+2025-04-03 10:28:17,559 - LOG - INFO - Epoch: 50/1000 average psnr: 47.6427422  bestpsnr: 47.7586250, bestepoch: 44
+2025-04-03 10:32:22,161 - LOG - INFO - Epoch: 52/1000 average psnr: 47.6707802  bestpsnr: 47.7586250, bestepoch: 44
+2025-04-03 10:36:32,280 - LOG - INFO - Epoch: 54/1000 average psnr: 47.7834724  bestpsnr: 47.7834724, bestepoch: 54
+2025-04-03 10:40:47,481 - LOG - INFO - Epoch: 56/1000 average psnr: 47.8456360  bestpsnr: 47.8456360, bestepoch: 56
+2025-04-03 10:44:55,453 - LOG - INFO - Epoch: 58/1000 average psnr: 47.7454327  bestpsnr: 47.8456360, bestepoch: 56
+2025-04-03 10:49:01,608 - LOG - INFO - Epoch: 60/1000 average psnr: 47.7559261  bestpsnr: 47.8456360, bestepoch: 56
+2025-04-03 10:53:16,391 - LOG - INFO - Epoch: 62/1000 average psnr: 47.5609852  bestpsnr: 47.8456360, bestepoch: 56
+2025-04-03 10:57:26,891 - LOG - INFO - Epoch: 64/1000 average psnr: 47.8934452  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:01:32,699 - LOG - INFO - Epoch: 66/1000 average psnr: 47.6411747  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:05:44,653 - LOG - INFO - Epoch: 68/1000 average psnr: 47.8132805  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:09:52,439 - LOG - INFO - Epoch: 70/1000 average psnr: 47.6537861  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:13:55,288 - LOG - INFO - Epoch: 72/1000 average psnr: 47.8645344  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:18:00,117 - LOG - INFO - Epoch: 74/1000 average psnr: 47.7858963  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:22:09,836 - LOG - INFO - Epoch: 76/1000 average psnr: 47.7889900  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:26:20,286 - LOG - INFO - Epoch: 78/1000 average psnr: 47.8382542  bestpsnr: 47.8934452, bestepoch: 64
+2025-04-03 11:30:25,617 - LOG - INFO - Epoch: 80/1000 average psnr: 47.9799644  bestpsnr: 47.9799644, bestepoch: 80
+2025-04-03 11:34:47,242 - LOG - INFO - Epoch: 82/1000 average psnr: 47.9525620  bestpsnr: 47.9799644, bestepoch: 80
+2025-04-03 11:38:58,597 - LOG - INFO - Epoch: 84/1000 average psnr: 48.0075253  bestpsnr: 48.0075253, bestepoch: 84
+2025-04-03 11:43:06,354 - LOG - INFO - Epoch: 86/1000 average psnr: 47.9878296  bestpsnr: 48.0075253, bestepoch: 84
+2025-04-03 11:47:10,939 - LOG - INFO - Epoch: 88/1000 average psnr: 48.0204182  bestpsnr: 48.0204182, bestepoch: 88
+2025-04-03 11:51:28,894 - LOG - INFO - Epoch: 90/1000 average psnr: 47.9051598  bestpsnr: 48.0204182, bestepoch: 88
+2025-04-03 11:55:36,682 - LOG - INFO - Epoch: 92/1000 average psnr: 47.9589222  bestpsnr: 48.0204182, bestepoch: 88
+2025-04-03 11:59:37,740 - LOG - INFO - Epoch: 94/1000 average psnr: 47.9718586  bestpsnr: 48.0204182, bestepoch: 88
+2025-04-03 12:03:45,950 - LOG - INFO - Epoch: 96/1000 average psnr: 48.0303070  bestpsnr: 48.0303070, bestepoch: 96
+2025-04-03 12:07:58,296 - LOG - INFO - Epoch: 98/1000 average psnr: 47.9743591  bestpsnr: 48.0303070, bestepoch: 96
+2025-04-03 12:12:14,035 - LOG - INFO - Epoch: 100/1000 average psnr: 47.7218498  bestpsnr: 48.0303070, bestepoch: 96
+2025-04-03 12:16:23,390 - LOG - INFO - Epoch: 102/1000 average psnr: 47.8688366  bestpsnr: 48.0303070, bestepoch: 96
+2025-04-03 12:20:31,378 - LOG - INFO - Epoch: 104/1000 average psnr: 48.1038002  bestpsnr: 48.1038002, bestepoch: 104
+2025-04-03 12:24:42,188 - LOG - INFO - Epoch: 106/1000 average psnr: 48.1410763  bestpsnr: 48.1410763, bestepoch: 106
+2025-04-03 12:28:51,631 - LOG - INFO - Epoch: 108/1000 average psnr: 48.0973736  bestpsnr: 48.1410763, bestepoch: 106
+2025-04-03 12:33:02,738 - LOG - INFO - Epoch: 110/1000 average psnr: 47.9428799  bestpsnr: 48.1410763, bestepoch: 106
+2025-04-03 12:37:07,625 - LOG - INFO - Epoch: 112/1000 average psnr: 48.1414227  bestpsnr: 48.1414227, bestepoch: 112
+2025-04-03 12:41:16,190 - LOG - INFO - Epoch: 114/1000 average psnr: 48.0996052  bestpsnr: 48.1414227, bestepoch: 112
+2025-04-03 12:45:29,970 - LOG - INFO - Epoch: 116/1000 average psnr: 47.9485737  bestpsnr: 48.1414227, bestepoch: 112
+2025-04-03 12:49:44,213 - LOG - INFO - Epoch: 118/1000 average psnr: 48.1120945  bestpsnr: 48.1414227, bestepoch: 112
+2025-04-03 12:53:55,815 - LOG - INFO - Epoch: 120/1000 average psnr: 48.0582672  bestpsnr: 48.1414227, bestepoch: 112
+2025-04-03 12:57:56,523 - LOG - INFO - Epoch: 122/1000 average psnr: 48.1625671  bestpsnr: 48.1625671, bestepoch: 122
+2025-04-03 13:01:59,131 - LOG - INFO - Epoch: 124/1000 average psnr: 48.1991886  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:06:01,570 - LOG - INFO - Epoch: 126/1000 average psnr: 48.1349808  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:10:04,141 - LOG - INFO - Epoch: 128/1000 average psnr: 48.1951199  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:14:15,008 - LOG - INFO - Epoch: 130/1000 average psnr: 48.1880215  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:18:50,870 - LOG - INFO - Epoch: 132/1000 average psnr: 48.0690140  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:22:53,482 - LOG - INFO - Epoch: 134/1000 average psnr: 48.1003403  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:26:58,531 - LOG - INFO - Epoch: 136/1000 average psnr: 48.0975128  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:31:04,007 - LOG - INFO - Epoch: 138/1000 average psnr: 48.1961483  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:35:10,246 - LOG - INFO - Epoch: 140/1000 average psnr: 47.8138306  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:39:18,982 - LOG - INFO - Epoch: 142/1000 average psnr: 48.1116055  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:43:27,077 - LOG - INFO - Epoch: 144/1000 average psnr: 48.1764374  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:47:37,537 - LOG - INFO - Epoch: 146/1000 average psnr: 48.0937599  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:51:44,340 - LOG - INFO - Epoch: 148/1000 average psnr: 48.0875069  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:55:48,893 - LOG - INFO - Epoch: 150/1000 average psnr: 48.1271976  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 13:59:51,702 - LOG - INFO - Epoch: 152/1000 average psnr: 48.1140388  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:03:57,373 - LOG - INFO - Epoch: 154/1000 average psnr: 48.0481930  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:08:03,235 - LOG - INFO - Epoch: 156/1000 average psnr: 47.9419182  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:12:07,981 - LOG - INFO - Epoch: 158/1000 average psnr: 48.1571980  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:16:13,657 - LOG - INFO - Epoch: 160/1000 average psnr: 48.1576599  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:20:20,309 - LOG - INFO - Epoch: 162/1000 average psnr: 48.1881214  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:24:25,004 - LOG - INFO - Epoch: 164/1000 average psnr: 48.0430542  bestpsnr: 48.1991886, bestepoch: 124
+2025-04-03 14:28:32,769 - LOG - INFO - Epoch: 166/1000 average psnr: 48.2295147  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:32:46,098 - LOG - INFO - Epoch: 168/1000 average psnr: 48.0988392  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:36:55,390 - LOG - INFO - Epoch: 170/1000 average psnr: 48.0018734  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:41:02,606 - LOG - INFO - Epoch: 172/1000 average psnr: 48.1301136  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:45:10,163 - LOG - INFO - Epoch: 174/1000 average psnr: 48.1103523  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:49:19,781 - LOG - INFO - Epoch: 176/1000 average psnr: 48.1049042  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:53:25,338 - LOG - INFO - Epoch: 178/1000 average psnr: 48.1230095  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 14:57:31,441 - LOG - INFO - Epoch: 180/1000 average psnr: 47.9058220  bestpsnr: 48.2295147, bestepoch: 166
+2025-04-03 15:01:37,809 - LOG - INFO - Epoch: 182/1000 average psnr: 48.3027023  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:05:45,594 - LOG - INFO - Epoch: 184/1000 average psnr: 47.9849804  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:09:53,904 - LOG - INFO - Epoch: 186/1000 average psnr: 48.1501389  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:13:57,848 - LOG - INFO - Epoch: 188/1000 average psnr: 47.9684330  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:18:06,143 - LOG - INFO - Epoch: 190/1000 average psnr: 48.0766819  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:22:12,118 - LOG - INFO - Epoch: 192/1000 average psnr: 48.2149754  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:26:27,518 - LOG - INFO - Epoch: 194/1000 average psnr: 48.1874229  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:30:45,145 - LOG - INFO - Epoch: 196/1000 average psnr: 48.0665493  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:35:03,453 - LOG - INFO - Epoch: 198/1000 average psnr: 48.1937202  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:39:14,367 - LOG - INFO - Epoch: 200/1000 average psnr: 48.1022274  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:43:34,033 - LOG - INFO - Epoch: 202/1000 average psnr: 48.1182095  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:47:43,954 - LOG - INFO - Epoch: 204/1000 average psnr: 48.2538319  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:51:59,718 - LOG - INFO - Epoch: 206/1000 average psnr: 48.1518482  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 15:56:13,960 - LOG - INFO - Epoch: 208/1000 average psnr: 48.1269135  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:00:29,774 - LOG - INFO - Epoch: 210/1000 average psnr: 48.1646664  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:04:41,037 - LOG - INFO - Epoch: 212/1000 average psnr: 48.1824474  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:08:56,509 - LOG - INFO - Epoch: 214/1000 average psnr: 48.1004734  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:13:05,679 - LOG - INFO - Epoch: 216/1000 average psnr: 48.1628155  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:17:19,987 - LOG - INFO - Epoch: 218/1000 average psnr: 48.0764557  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:21:33,744 - LOG - INFO - Epoch: 220/1000 average psnr: 48.2000435  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:25:55,485 - LOG - INFO - Epoch: 222/1000 average psnr: 48.1602009  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:30:03,998 - LOG - INFO - Epoch: 224/1000 average psnr: 47.9850761  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:34:08,547 - LOG - INFO - Epoch: 226/1000 average psnr: 48.1657486  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:38:18,447 - LOG - INFO - Epoch: 228/1000 average psnr: 48.1624950  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:42:29,780 - LOG - INFO - Epoch: 230/1000 average psnr: 48.1661385  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:46:37,270 - LOG - INFO - Epoch: 232/1000 average psnr: 48.1624355  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:50:44,522 - LOG - INFO - Epoch: 234/1000 average psnr: 48.1754135  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:54:51,661 - LOG - INFO - Epoch: 236/1000 average psnr: 48.1336468  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 16:59:01,191 - LOG - INFO - Epoch: 238/1000 average psnr: 48.0433975  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:03:28,820 - LOG - INFO - Epoch: 240/1000 average psnr: 48.1152721  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:07:31,398 - LOG - INFO - Epoch: 242/1000 average psnr: 48.2371475  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:11:33,284 - LOG - INFO - Epoch: 244/1000 average psnr: 48.1419136  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:15:43,074 - LOG - INFO - Epoch: 246/1000 average psnr: 48.0530025  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:20:06,223 - LOG - INFO - Epoch: 248/1000 average psnr: 48.1708847  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:24:18,325 - LOG - INFO - Epoch: 250/1000 average psnr: 48.2466343  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:28:34,465 - LOG - INFO - Epoch: 252/1000 average psnr: 48.2272232  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:32:44,038 - LOG - INFO - Epoch: 254/1000 average psnr: 48.2121582  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:36:56,919 - LOG - INFO - Epoch: 256/1000 average psnr: 48.1382282  bestpsnr: 48.3027023, bestepoch: 182
+2025-04-03 17:41:17,477 - LOG - INFO - Epoch: 258/1000 average psnr: 48.3033699  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 17:45:42,017 - LOG - INFO - Epoch: 260/1000 average psnr: 48.2220329  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 17:50:05,901 - LOG - INFO - Epoch: 262/1000 average psnr: 48.1649849  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 17:54:11,019 - LOG - INFO - Epoch: 264/1000 average psnr: 48.1315929  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 17:58:19,209 - LOG - INFO - Epoch: 266/1000 average psnr: 48.1808247  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:02:26,928 - LOG - INFO - Epoch: 268/1000 average psnr: 48.2052402  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:06:53,387 - LOG - INFO - Epoch: 270/1000 average psnr: 48.2638767  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:11:11,137 - LOG - INFO - Epoch: 272/1000 average psnr: 48.1889782  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:15:25,033 - LOG - INFO - Epoch: 274/1000 average psnr: 48.1869953  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:19:37,432 - LOG - INFO - Epoch: 276/1000 average psnr: 48.2642864  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:23:50,495 - LOG - INFO - Epoch: 278/1000 average psnr: 48.0915020  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:27:55,267 - LOG - INFO - Epoch: 280/1000 average psnr: 48.2552414  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:32:01,756 - LOG - INFO - Epoch: 282/1000 average psnr: 48.0072308  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:36:18,021 - LOG - INFO - Epoch: 284/1000 average psnr: 48.2542175  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:40:38,337 - LOG - INFO - Epoch: 286/1000 average psnr: 48.2556202  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:44:53,633 - LOG - INFO - Epoch: 288/1000 average psnr: 48.2845680  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:49:14,431 - LOG - INFO - Epoch: 290/1000 average psnr: 48.1781410  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:53:23,617 - LOG - INFO - Epoch: 292/1000 average psnr: 48.0376808  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 18:57:29,921 - LOG - INFO - Epoch: 294/1000 average psnr: 48.2452629  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 19:01:39,636 - LOG - INFO - Epoch: 296/1000 average psnr: 48.1782074  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 19:05:46,257 - LOG - INFO - Epoch: 298/1000 average psnr: 48.1914841  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 19:09:52,714 - LOG - INFO - Epoch: 300/1000 average psnr: 48.1674061  bestpsnr: 48.3033699, bestepoch: 258
+2025-04-03 19:14:04,603 - LOG - INFO - Epoch: 302/1000 average psnr: 48.3199867  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:18:23,666 - LOG - INFO - Epoch: 304/1000 average psnr: 48.2576241  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:22:32,977 - LOG - INFO - Epoch: 306/1000 average psnr: 48.1784683  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:26:41,411 - LOG - INFO - Epoch: 308/1000 average psnr: 48.2412632  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:30:46,364 - LOG - INFO - Epoch: 310/1000 average psnr: 48.2774052  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:34:55,296 - LOG - INFO - Epoch: 312/1000 average psnr: 48.2624130  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:39:15,936 - LOG - INFO - Epoch: 314/1000 average psnr: 48.2089058  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:43:30,266 - LOG - INFO - Epoch: 316/1000 average psnr: 48.1264851  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:47:44,201 - LOG - INFO - Epoch: 318/1000 average psnr: 48.3105595  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:52:06,563 - LOG - INFO - Epoch: 320/1000 average psnr: 48.2808182  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 19:56:15,788 - LOG - INFO - Epoch: 322/1000 average psnr: 48.1184875  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:00:27,281 - LOG - INFO - Epoch: 324/1000 average psnr: 48.2854683  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:04:42,716 - LOG - INFO - Epoch: 326/1000 average psnr: 48.2702950  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:09:04,774 - LOG - INFO - Epoch: 328/1000 average psnr: 48.2181477  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:13:10,216 - LOG - INFO - Epoch: 330/1000 average psnr: 48.2976955  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:17:23,203 - LOG - INFO - Epoch: 332/1000 average psnr: 48.2540871  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:21:44,446 - LOG - INFO - Epoch: 334/1000 average psnr: 48.1366192  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:25:55,490 - LOG - INFO - Epoch: 336/1000 average psnr: 48.3048290  bestpsnr: 48.3199867, bestepoch: 302
+2025-04-03 20:29:59,272 - LOG - INFO - Epoch: 338/1000 average psnr: 48.3415627  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:34:15,437 - LOG - INFO - Epoch: 340/1000 average psnr: 48.3234455  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:38:24,054 - LOG - INFO - Epoch: 342/1000 average psnr: 48.3071304  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:42:29,287 - LOG - INFO - Epoch: 344/1000 average psnr: 48.3187641  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:46:39,310 - LOG - INFO - Epoch: 346/1000 average psnr: 48.0959469  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:50:50,093 - LOG - INFO - Epoch: 348/1000 average psnr: 48.3040741  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:55:02,808 - LOG - INFO - Epoch: 350/1000 average psnr: 48.3104782  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 20:59:06,680 - LOG - INFO - Epoch: 352/1000 average psnr: 48.3362854  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:03:22,366 - LOG - INFO - Epoch: 354/1000 average psnr: 48.2378078  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:07:35,177 - LOG - INFO - Epoch: 356/1000 average psnr: 48.2846226  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:12:08,570 - LOG - INFO - Epoch: 358/1000 average psnr: 48.2394024  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:16:19,595 - LOG - INFO - Epoch: 360/1000 average psnr: 48.1971817  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:20:34,510 - LOG - INFO - Epoch: 362/1000 average psnr: 48.3343239  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:24:48,039 - LOG - INFO - Epoch: 364/1000 average psnr: 48.2215694  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:28:55,060 - LOG - INFO - Epoch: 366/1000 average psnr: 48.2390144  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:33:05,452 - LOG - INFO - Epoch: 368/1000 average psnr: 48.3090153  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:37:22,035 - LOG - INFO - Epoch: 370/1000 average psnr: 48.3071888  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:41:44,856 - LOG - INFO - Epoch: 372/1000 average psnr: 48.3159401  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:46:02,020 - LOG - INFO - Epoch: 374/1000 average psnr: 48.2797066  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:50:13,788 - LOG - INFO - Epoch: 376/1000 average psnr: 48.3107006  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:54:23,934 - LOG - INFO - Epoch: 378/1000 average psnr: 48.3071712  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 21:58:40,689 - LOG - INFO - Epoch: 380/1000 average psnr: 48.3231289  bestpsnr: 48.3415627, bestepoch: 338
+2025-04-03 22:02:57,809 - LOG - INFO - Epoch: 382/1000 average psnr: 48.3536652  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:07:09,115 - LOG - INFO - Epoch: 384/1000 average psnr: 48.3376823  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:11:15,915 - LOG - INFO - Epoch: 386/1000 average psnr: 48.3367126  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:15:26,940 - LOG - INFO - Epoch: 388/1000 average psnr: 48.2465004  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:19:34,532 - LOG - INFO - Epoch: 390/1000 average psnr: 48.3186420  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:23:43,977 - LOG - INFO - Epoch: 392/1000 average psnr: 48.3248447  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:27:56,308 - LOG - INFO - Epoch: 394/1000 average psnr: 48.3287319  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:32:00,283 - LOG - INFO - Epoch: 396/1000 average psnr: 48.3201202  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:36:10,421 - LOG - INFO - Epoch: 398/1000 average psnr: 48.3139076  bestpsnr: 48.3536652, bestepoch: 382
+2025-04-03 22:40:22,658 - LOG - INFO - Epoch: 400/1000 average psnr: 48.3600048  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 22:44:40,932 - LOG - INFO - Epoch: 402/1000 average psnr: 48.3198792  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 22:48:58,667 - LOG - INFO - Epoch: 404/1000 average psnr: 48.2777187  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 22:53:10,874 - LOG - INFO - Epoch: 406/1000 average psnr: 48.3096481  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 22:57:51,315 - LOG - INFO - Epoch: 408/1000 average psnr: 48.2785484  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:02:05,262 - LOG - INFO - Epoch: 410/1000 average psnr: 48.2890095  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:06:44,373 - LOG - INFO - Epoch: 412/1000 average psnr: 48.3447945  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:10:54,580 - LOG - INFO - Epoch: 414/1000 average psnr: 48.3236576  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:14:59,807 - LOG - INFO - Epoch: 416/1000 average psnr: 48.3512875  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:19:26,524 - LOG - INFO - Epoch: 418/1000 average psnr: 48.3304844  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:23:32,539 - LOG - INFO - Epoch: 420/1000 average psnr: 48.2788258  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:27:41,623 - LOG - INFO - Epoch: 422/1000 average psnr: 48.3419521  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:31:52,535 - LOG - INFO - Epoch: 424/1000 average psnr: 48.2852848  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:36:00,543 - LOG - INFO - Epoch: 426/1000 average psnr: 48.1371284  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:40:19,244 - LOG - INFO - Epoch: 428/1000 average psnr: 48.2461216  bestpsnr: 48.3600048, bestepoch: 400
+2025-04-03 23:44:32,822 - LOG - INFO - Epoch: 430/1000 average psnr: 48.3753914  bestpsnr: 48.3753914, bestepoch: 430
+2025-04-03 23:48:39,115 - LOG - INFO - Epoch: 432/1000 average psnr: 48.2996185  bestpsnr: 48.3753914, bestepoch: 430
+2025-04-03 23:52:46,722 - LOG - INFO - Epoch: 434/1000 average psnr: 48.2963329  bestpsnr: 48.3753914, bestepoch: 430
+2025-04-03 23:57:04,208 - LOG - INFO - Epoch: 436/1000 average psnr: 48.2605846  bestpsnr: 48.3753914, bestepoch: 430
+2025-04-04 00:01:19,616 - LOG - INFO - Epoch: 438/1000 average psnr: 48.3050365  bestpsnr: 48.3753914, bestepoch: 430
+2025-04-04 00:05:32,919 - LOG - INFO - Epoch: 440/1000 average psnr: 48.3148674  bestpsnr: 48.3753914, bestepoch: 430
+2025-04-04 00:09:38,868 - LOG - INFO - Epoch: 442/1000 average psnr: 48.3945557  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:13:46,455 - LOG - INFO - Epoch: 444/1000 average psnr: 48.3432487  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:18:13,833 - LOG - INFO - Epoch: 446/1000 average psnr: 48.3477463  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:22:23,882 - LOG - INFO - Epoch: 448/1000 average psnr: 48.3543579  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:26:29,378 - LOG - INFO - Epoch: 450/1000 average psnr: 48.3048756  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:30:42,255 - LOG - INFO - Epoch: 452/1000 average psnr: 48.2991642  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:34:56,370 - LOG - INFO - Epoch: 454/1000 average psnr: 48.3701172  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:39:20,089 - LOG - INFO - Epoch: 456/1000 average psnr: 48.3598831  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-04 00:43:45,096 - LOG - INFO - Epoch: 458/1000 average psnr: 48.2582172  bestpsnr: 48.3945557, bestepoch: 442
+2025-04-07 16:46:45,266 - LOG - INFO - =======Option used=======
+2025-04-07 16:47:15,114 - LOG - INFO - =======Option used=======
+2025-04-07 16:47:39,471 - LOG - INFO - =======Option used=======
+2025-04-07 16:48:12,854 - LOG - INFO - =======Option used=======
+2025-04-07 16:48:37,143 - LOG - INFO - =======Option used=======
+2025-04-07 19:54:45,902 - LOG - INFO - =======Option used=======
+2025-04-07 19:55:11,349 - LOG - INFO - =======Option used=======
+2025-04-07 19:55:33,328 - LOG - INFO - =======Option used=======
+2025-04-07 19:55:53,405 - LOG - INFO - =======Option used=======
+2025-04-07 19:56:38,087 - LOG - INFO - =======Option used=======
+2025-04-09 16:28:18,321 - LOG - INFO - =======Option used=======
+2025-04-09 16:28:57,049 - LOG - INFO - =======Option used=======
+2025-04-09 16:29:38,539 - LOG - INFO - =======Option used=======
+2025-04-09 16:30:14,108 - LOG - INFO - =======Option used=======
+2025-04-09 17:01:03,294 - LOG - INFO - =======Option used=======
+2025-04-09 17:01:32,003 - LOG - INFO - =======Option used=======
+2025-04-09 17:04:01,448 - LOG - INFO - =======Option used=======
+2025-04-09 17:04:33,544 - LOG - INFO - =======Option used=======
+2025-04-09 17:05:01,189 - LOG - INFO - =======Option used=======
+2025-04-09 17:07:06,163 - LOG - INFO - =======Option used=======
+2025-04-09 18:59:06,578 - LOG - INFO - =======Option used=======
+2025-04-09 19:07:12,064 - LOG - INFO - =======Option used=======
+2025-04-09 19:16:50,582 - LOG - INFO - =======Option used=======
+2025-04-09 19:17:58,782 - LOG - INFO - =======Option used=======
+2025-04-09 19:18:59,040 - LOG - INFO - =======Option used=======
+2025-04-09 19:19:53,430 - LOG - INFO - =======Option used=======
+2025-04-09 19:21:32,003 - LOG - INFO - =======Option used=======
+2025-04-09 19:22:23,501 - LOG - INFO - =======Option used=======
+2025-04-09 19:24:59,306 - LOG - INFO - =======Option used=======
+2025-04-09 19:50:48,728 - LOG - INFO - =======Option used=======
+2025-04-09 19:54:39,220 - LOG - INFO - =======Option used=======
+2025-04-09 19:55:52,758 - LOG - INFO - =======Option used=======
+2025-04-09 19:57:50,729 - LOG - INFO - =======Option used=======
+2025-04-09 19:58:18,679 - LOG - INFO - =======Option used=======
+2025-04-09 19:58:42,286 - LOG - INFO - =======Option used=======
+2025-04-09 19:59:04,236 - LOG - INFO - =======Option used=======
+2025-04-09 20:00:44,267 - LOG - INFO - =======Option used=======
