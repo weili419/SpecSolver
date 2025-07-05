@@ -3,7 +3,7 @@
   <h1>🔬 SpecSolver</h1>
   <h3>Solving Spatial–Spectral Fusion via Semantic Transformer</h3>
   
-  **Wei Li**<sup>1</sup>, **Junwei Zhu**<sup>1</sup>, **Honghui Xu**<sup>1</sup>, **Jiawei Jiang**<sup>1</sup>, **Jianwei Zhen**<sup>1</sup><br>
+  **Wei Li**<sup>1</sup>, **Junwei Zhu**<sup>1</sup>, **Honghui Xu**<sup>1</sup>, **Jiawei Jiang**<sup>1</sup>, **Jianwei Zheng**<sup>1</sup><br>
   <sup>1</sup>Zhejiang University of Technology  
   ✉️ Corresponding author: [zhengjianwei2@zjut.edu.cn](mailto:zhengjianwei2@zjut.edu.cn)
 </div>
