@@ -5,7 +5,7 @@
   
   **Wei Li**<sup>1</sup>, **Junwei Zhu**<sup>1</sup>, **Honghui Xu**<sup>1</sup>, **Jiawei Jiang**<sup>1</sup>, **Jianwei Zheng**<sup>1</sup><br>
   <sup>1</sup>Zhejiang University of Technology  
-  ✉️ Corresponding author: [zhengjianwei2@zjut.edu.cn](mailto:zhengjianwei2@zjut.edu.cn)
+  ✉️ Corresponding author: [zjw@zjut.edu.cn](mailto:zjw@zjut.edu.cn)
 </div>
 
 ---
