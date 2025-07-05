@@ -2,8 +2,7 @@ import torch
 import numpy as np
 import torch.nn as nn
 from timm.models.layers import trunc_normal_
-from .Transolver_utils.utils import timestep_embedding
-from .Transolver_utils.utils import Physics_Attention_Structured_Mesh_2D
+from .Semantic_Attention import Semantic_Attention
 
 import math
 from argparse import Namespace
@@ -15,24 +14,6 @@ import cv2
 from skimage.restoration import unwrap_phase
 ACTIVATION = {'gelu': nn.GELU, 'tanh': nn.Tanh, 'sigmoid': nn.Sigmoid, 'relu': nn.ReLU, 'leaky_relu': nn.LeakyReLU(0.1),
               'softplus': nn.Softplus, 'ELU': nn.ELU, 'silu': nn.SiLU}
-
-
-# def make_coord(shape, ranges=None, flatten=True):
-#     """ Make coordinates at grid centers.
-#     """
-#     coord_seqs = []
-#     for i, n in enumerate(shape):
-#         if ranges is None:
-#             v0, v1 = -1, 1
-#         else:
-#             v0, v1 = ranges[i]
-#         r = (v1 - v0) / (2 * n)
-#         seq = v0 + r + (2 * r) * torch.arange(n).float()
-#         coord_seqs.append(seq)
-#     ret = torch.stack(torch.meshgrid(*coord_seqs), dim=-1)
-#     if flatten:
-#         ret = ret.view(-1, ret.shape[-1])
-#     return ret
 
 def default_conv(in_channels, out_channels, kernel_size, bias=True):
     return nn.Conv2d(
@@ -565,7 +546,7 @@ class Transolver_block(nn.Module):
         super().__init__()
         self.last_layer = last_layer
         self.ln_1 = nn.LayerNorm(hidden_dim)
-        self.Attn = Physics_Attention_Structured_Mesh_2D(hidden_dim, heads=num_heads, dim_head=hidden_dim // num_heads,
+        self.Attn = Semantic_Attention(hidden_dim, heads=num_heads, dim_head=hidden_dim // num_heads,
                                                          dropout=dropout, slice_num=slice_num, H=H, W=W)
         # self.GI = Galerkin_integral(128, 8)
         # self.PR = Progressive_Resampling_integral(dim=128, input_resolution=1024, num_heads=8, ssl=16)
@@ -613,61 +594,40 @@ class fftLoss(nn.Module):
 
 class Modelcave(nn.Module):
     def __init__(self,
-                 space_dim=1,
                  n_layers=5,
                  n_hidden=256,
                  dropout=0.0,
                  n_head=8,
-                 Time_Input=False,
                  act='gelu',
                  mlp_ratio=1,
                  fun_dim=1,
                  out_dim=1,
                  slice_num=32,
                  ref=8,
-                 unified_pos=False,
                  H=85,
                  W=85,
                  ):
         super(Modelcave, self).__init__()
-        self.__name__ = 'Transolver_2D'
         self.H = H
         self.W = W
         self.ref = ref
-        self.unified_pos = unified_pos
         self.out_dim = out_dim
 
-        spa_edsr_num = 6 #5#6
-        guide_dim = 128 #96#128
+        spa_edsr_num = 6 
+        guide_dim = 128 
         hsi_dim = 3
         msi_dim = 31
         self.spatial_encoder = make_edsr_baseline(n_resblocks=spa_edsr_num, n_feats=guide_dim, n_colors=hsi_dim+msi_dim)
         ##########################################################################################################################
         self.spa1 = SpaPyBlock(guide_dim, 128)
-        # # self.spe1 = SpePyBlock(32)
-        # # self.inc = DoubleConv(msi_dim+hsi_dim, 64)
-        # # self.mls1  = MLSIF(dim=64, num_blocks=1, dim_head=64, heads=64 // 64)
-        # ##########################################################################################################################
+        ##########################################################################################################################
         imnet_in_dim = 128
         NIR_dim = 128
         mlp_dim = [128]
         self.imnet1 = MLP_1(imnet_in_dim, out_dim=NIR_dim, hidden_list=mlp_dim)
-
-        # self.imnet_3_3 = MLP_3(imnet_in_dim, out_dim=NIR_dim, hidden_list=mlp_dim)
         self.imnet2 = MLP_3(imnet_in_dim, out_dim=NIR_dim, hidden_list=mlp_dim)
         ##########################################################################################################################
-        ##########################################################################################################################
-        if self.unified_pos:
-            # self.pos = self.get_grid()
-            self.preprocess = MLP(fun_dim + 2, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
-        # else:
-        #     self.preprocess = MLP(fun_dim + space_dim, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
-
-        # self.Time_Input = Time_Input
-        # self.n_hidden = n_hidden
-        # self.space_dim = space_dim
-        # if Time_Input:
-        #     self.time_fc = nn.Sequential(nn.Linear(n_hidden, n_hidden), nn.SiLU(), nn.Linear(n_hidden, n_hidden))
+        self.preprocess = MLP(fun_dim + 2, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
 
         self.blocks = nn.ModuleList([Transolver_block(num_heads=n_head, hidden_dim=n_hidden,
                                                       dropout=dropout,
@@ -680,7 +640,6 @@ class Modelcave(nn.Module):
                                                       last_layer=(_ == n_layers - 1))
                                      for _ in range(n_layers)])
         self.initialize_weights()
-        # self.placeholder = nn.Parameter((1 / (n_hidden)) * torch.rand(n_hidden, dtype=torch.float))
 
     def initialize_weights(self):
         self.apply(self._init_weights)
@@ -694,311 +653,20 @@ class Modelcave(nn.Module):
             nn.init.constant_(m.bias, 0)
             nn.init.constant_(m.weight, 1.0)
 
-    def get_grid(self, batchsize=1):
-        size_x, size_y = self.H, self.W
-        gridx = torch.tensor(np.linspace(0, 1, size_x), dtype=torch.float)
-        gridx = gridx.reshape(1, size_x, 1, 1).repeat([batchsize, 1, size_y, 1])
-        gridy = torch.tensor(np.linspace(0, 1, size_y), dtype=torch.float)
-        gridy = gridy.reshape(1, 1, size_y, 1).repeat([batchsize, size_x, 1, 1])
-        grid = torch.cat((gridx, gridy), dim=-1).cuda()  # B H W 2
+    def forward(self, x, up_LR, RGB):
 
-        gridx = torch.tensor(np.linspace(0, 1, self.ref), dtype=torch.float)
-        gridx = gridx.reshape(1, self.ref, 1, 1).repeat([batchsize, 1, self.ref, 1])
-        gridy = torch.tensor(np.linspace(0, 1, self.ref), dtype=torch.float)
-        gridy = gridy.reshape(1, 1, self.ref, 1).repeat([batchsize, self.ref, 1, 1])
-        grid_ref = torch.cat((gridx, gridy), dim=-1).cuda()  # B H W 8 8 2
-
-        pos = torch.sqrt(torch.sum((grid[:, :, :, None, None, :] - grid_ref[:, None, None, :, :, :]) ** 2, dim=-1)). \
-            reshape(batchsize, size_x, size_y, self.ref * self.ref).contiguous()
-        return pos
-
-    def forward(self, x, up_LR, RGB, HR=None, j=None, LR =None, T=None):
-
-        fx = torch.cat((up_LR, RGB), 1) # 连接 [B, C, H, W]
+        fx = torch.cat((up_LR, RGB), 1) 
         fx = self.spatial_encoder(fx) # EDSR-encoder
         B, C, H, W = fx.shape
-        
-        fxHR = torch.cat((HR, RGB), 1)
-        fxHR_spa = self.spatial_encoder(fxHR)
+
         #########################################################
-        if j is not None:
-            yuan = fxHR_spa[0, 25, :, :]  # shape: [512, 512]
-            # 对图像做傅里叶变换
-            img_ffted2 = torch.fft.fft2(yuan)
-            fft_shifted2 = torch.fft.fftshift(img_ffted2)
-
-            # 获取幅度和相位
-            img_mag2 = torch.abs(fft_shifted2)
-            amplitude_log2 = torch.log(1 + img_mag2)
-            # img_pha2 = torch.angle(fft_shifted2)
-
-            gamma = 1.5
-            amplitude_log2 = torch.pow(amplitude_log2, gamma)
-            amplitude_normalized2 = (amplitude_log2 - torch.min(amplitude_log2)) / (torch.max(amplitude_log2) - torch.min(amplitude_log2))
-            
-            # phase_normalized = (img_pha + torch.pi) / (2 * torch.pi)  # 相位从 [-π, π] 映射到 [0, 1]
-            # phase_mean = torch.mean(phase_normalized)      
-            # _, phase_binary = cv2.threshold(phase_normalized.cpu().numpy(), phase_mean.item(), 1.0, cv2.THRESH_BINARY)
-############################################################################################################################            
-            y1 = self.spa1(fx)
-
-            feat_ffted = torch.fft.fftn(fx, dim=(-2,-1))
-            feat_mag = torch.abs(feat_ffted).permute(0,2,3,1).reshape(B*H*W,-1)
-            # feat_mag = torch.abs(feat_ffted)
-            feat_pha = torch.angle(feat_ffted)
-
-            ffted_mag = self.imnet1(feat_mag).reshape(B, C, H, W)
-            # ffted_mag = self.imnet_3_3(feat_mag)
-            ffted_pha = self.imnet2(feat_pha)
-
-            real = ffted_mag * torch.cos(ffted_pha)
-            imag = ffted_mag * torch.sin(ffted_pha)        
-            ffted = torch.complex(real, imag)
-            output = torch.fft.ifftn(ffted, dim =(-2,-1))
-            output = torch.abs(output) + y1
-############################################################################################################################
-            img = output[0, 25, :, :]  # shape: [512, 512]
-            img_ffted = torch.fft.fft2(img)
-            fft_shifted = torch.fft.fftshift(img_ffted)
-
-            # 获取幅度和相位
-            img_mag = torch.abs(fft_shifted)
-            amplitude_log = torch.log(1 + img_mag)
-            # img_pha = torch.angle(fft_shifted)
-
-            gamma = 1.5
-            amplitude_log = torch.pow(amplitude_log, gamma)
-            amplitude_normalized = (amplitude_log - torch.min(amplitude_log)) / (torch.max(amplitude_log) - torch.min(amplitude_log))
-            
-            # phase_normalized = (img_pha + torch.pi) / (2 * torch.pi)  # 相位从 [-π, π] 映射到 [0, 1]
-            # phase_mean = torch.mean(phase_normalized)      
-            # _, phase_binary = cv2.threshold(phase_normalized.cpu().numpy(), phase_mean.item(), 1.0, cv2.THRESH_BINARY)   
-############################################################################################################################ 
-            difference = amplitude_normalized2 - amplitude_normalized
-            diff_np = difference.cpu().detach().numpy() if difference.is_cuda else difference.detach().numpy()
-
-            save_path = "/root/data1/CAVE/experiment/Debug/4/1_1conv/3_3.png"  # 保存路径
-            plt.imshow(amplitude_normalized.cpu().numpy(), cmap='gray')
-            plt.axis('off')
-            plt.savefig(save_path, bbox_inches='tight')
-            plt.close()
-
-            save_path2 = "/root/data1/CAVE/experiment/Debug/4/1_1conv/3_3error.png"  # 保存路径
-            plt.imshow(diff_np, cmap='bwr', vmin=-1, vmax=1)
-            plt.axis('off')
-            plt.savefig(save_path2, bbox_inches='tight')
-            plt.close()
-
-
-            # for i in range(fx.shape[1]):  # 遍历通道
-            #     i = 25
-            #     save_path = "/root/data1/CAVE/experiment/Debug/4/testimage"
-            #     img = fx21[0, i, :, :]  # shape: [512, 512]
-
-            #     # 对图像做傅里叶变换
-            #     img_ffted = torch.fft.fft2(img)
-            #     fft_shifted = torch.fft.fftshift(img_ffted)
-
-            #     # 获取幅度和相位
-            #     ffted_mag = torch.abs(fft_shifted)
-            #     amplitude_log = torch.log(1 + ffted_mag)
-            #     ffted_pha = torch.angle(fft_shifted)
-
-            #     ffted_mag2 = torch.abs(img_ffted)
-            #     ffted_pha2 = torch.angle(img_ffted)               
-            #     # 去除相位
-            #     # 去除相位（保留振幅，设置相位为0）
-            #     # real_amp_removed = ffted_mag2 * torch.cos(torch.zeros_like(ffted_pha2))  # 相位为0
-            #     # imag_amp_removed = ffted_mag2 * torch.sin(torch.zeros_like(ffted_pha2))
-            #     real_amp_removed = ffted_mag2  # 只保留振幅信息，实部就是振幅
-            #     imag_amp_removed = torch.zeros_like(ffted_mag2)  # 虚部设为0
-
-            #     # 重构复数傅里叶变换（去除相位后的复数表示）
-            #     ffted_amp_removed = torch.complex(real_amp_removed, imag_amp_removed)
-            #     ffted_amp_removed = torch.fft.ifftn(ffted_amp_removed).real
-            #     # ffted_amp_removed = torch.abs(ffted_amp_removed)
-                
-            #     ffted_amp_removed = (ffted_amp_removed - torch.min(ffted_amp_removed)) / (torch.max(ffted_amp_removed) - torch.min(ffted_amp_removed))
-
-            #     # 去除振幅（保留相位，振幅设置为0）
-            #     real_pha_removed = torch.cos(ffted_pha2)  # 振幅为0，保留相位
-            #     imag_pha_removed = torch.sin(ffted_pha2)  # 振幅为0，保留相位
-
-            #     # 重构复数傅里叶变换（去除振幅后的复数表示）
-            #     ffted_pha_removed = torch.complex(real_pha_removed, imag_pha_removed)
-            #     ffted_pha_removed = torch.fft.ifftn(ffted_pha_removed).real
-            #     # ffted_pha_removed = torch.abs(ffted_pha_removed)
-
-            #     ffted_pha_removed = (ffted_pha_removed - torch.min(ffted_pha_removed)) / (torch.max(ffted_pha_removed) - torch.min(ffted_pha_removed))
-
-            #     gamma = 1.5
-            #     amplitude_log = torch.pow(amplitude_log, gamma)
-        
-            #     amplitude_normalized = (amplitude_log - torch.min(amplitude_log)) / (torch.max(amplitude_log) - torch.min(amplitude_log))
-            #     phase_normalized = (ffted_pha + torch.pi) / (2 * torch.pi)  # 相位从 [-π, π] 映射到 [0, 1]
-
-            #     phase_mean = torch.mean(phase_normalized)      
-            #     _, phase_binary = cv2.threshold(phase_normalized.cpu().numpy(), phase_mean.item(), 1.0, cv2.THRESH_BINARY)
-        
-            #     fig, axes = plt.subplots(3, 2, figsize=(12, 18))  # 3行2列
-            #     axes[0, 0].imshow(img.cpu().numpy(), cmap='gray')
-            #     axes[0, 0].set_title('Original Image')
-            #     axes[0, 0].axis('off')
-            #     # 振幅图
-            #     axes[1, 0].imshow(amplitude_normalized.cpu().numpy(), cmap='gray')
-            #     axes[1, 0].set_title('Amplitude Spectrum')
-            #     axes[1, 0].axis('off')
-
-            #     # 相位图
-            #     axes[1, 1].imshow(phase_normalized.cpu().numpy(), cmap='gray')
-            #     axes[1, 1].set_title('Phase Spectrum')
-            #     axes[1, 1].axis('off')
-
-            #     # 振幅后逆傅里叶变换得到的图像
-            #     axes[2, 0].imshow(ffted_amp_removed.cpu().numpy(), cmap='gray')
-            #     axes[2, 0].set_title('IFFT amp')
-            #     axes[2, 0].axis('off')
-
-            #     # 相位后逆傅里叶变换得到的图像
-            #     axes[2, 1].imshow(ffted_pha_removed.cpu().numpy(), cmap='gray')
-            #     axes[2, 1].set_title('IFFT pha')
-            #     axes[2, 1].axis('off')
-
-            #     combined_path = os.path.join(save_path, f"combined_channel_{i}_{j}.png")  
-            #     plt.savefig(combined_path, bbox_inches='tight')
-            #     plt.close()
-            #     return up_LR
-
-            for i in range(fx.shape[1]):  # 遍历通道
-                save_path = "/root/data1/CAVE/experiment/Debug/4/image"
-                img = fx[0, 25, :, :]  # shape: [512, 512]
-
-                # 对图像做傅里叶变换
-                img_ffted = torch.fft.fft2(img)
-                fft_shifted = torch.fft.fftshift(img_ffted)
-
-                # 获取幅度和相位
-                img_mag = torch.abs(fft_shifted)
-                amplitude_log = torch.log(1 + img_mag)
-                img_pha = torch.angle(fft_shifted)
-
-                gamma = 1.5
-                amplitude_log = torch.pow(amplitude_log, gamma)
-        
-                amplitude_normalized = (amplitude_log - torch.min(amplitude_log)) / (torch.max(amplitude_log) - torch.min(amplitude_log))
-                phase_normalized = (img_pha + torch.pi) / (2 * torch.pi)  # 相位从 [-π, π] 映射到 [0, 1]
-
-                phase_mean = torch.mean(phase_normalized)      
-                _, phase_binary = cv2.threshold(phase_normalized.cpu().numpy(), phase_mean.item(), 1.0, cv2.THRESH_BINARY)
-
-                # 保存振幅图
-                fig_amp = plt.figure(figsize=(6, 6))  # 单独设置尺寸
-                plt.imshow(amplitude_normalized.cpu().numpy(), cmap='gray')
-                plt.axis('off')
-                amplitude_path = os.path.join(save_path, f"amplitude_channel_{25}_{j}.png")
-                plt.savefig(amplitude_path, bbox_inches='tight')
-                plt.close(fig_amp)  # 显式关闭当前figure
-
-                # 保存相位图
-                fig_phase = plt.figure(figsize=(6, 6))  # 单独设置尺寸
-                plt.imshow(phase_normalized.cpu().numpy(), cmap='gray')
-                plt.axis('off')
-                phase_path = os.path.join(save_path, f"phase_channel_{25}_{j}.svg")
-                plt.savefig(phase_path, bbox_inches='tight')
-                plt.close(fig_phase)  # 显式关闭当前figure                
-
-                center_h, center_w = 256, 256  # 得到中心坐标
-                half_size = 64  # 128的一半
-                center_region = phase_normalized[center_h - half_size:center_h + half_size,
-                                            center_w - half_size:center_w + half_size].cpu().numpy()
-
-                # 放大四倍，即输出尺寸为128*4 x 128*4 = 512x512
-                center_zoomed = cv2.resize(center_region, (128 * 4, 128 * 4), interpolation=cv2.INTER_NEAREST)
-
-                # 保存放大后的相位图
-                fig_zoom = plt.figure(figsize=(6, 6))
-                plt.imshow(center_zoomed, cmap='gray')
-                plt.axis('off')
-                zoom_path = os.path.join(save_path, f"phase_channel_zoom_{25}_{j}.svg")
-                plt.savefig(zoom_path, bbox_inches='tight')
-                plt.close(fig_zoom)
-
-            # for i in range(fx2.shape[1]):  # 遍历通道
-            #     save_path = "/root/data1/CAVE/experiment/Debug/4/HR_RGB_image"
-            #     img = fx2[0, 25, :, :]  # shape: [512, 512]
-
-            #     # 对图像做傅里叶变换
-            #     img_ffted = torch.fft.fft2(img)
-            #     fft_shifted = torch.fft.fftshift(img_ffted)
-
-            #     # 获取幅度和相位
-            #     img_mag = torch.abs(fft_shifted)
-            #     amplitude_log = torch.log(1 + img_mag)
-            #     img_pha = torch.angle(fft_shifted)
-
-            #     gamma = 1.5
-            #     amplitude_log = torch.pow(amplitude_log, gamma)
-        
-            #     amplitude_normalized = (amplitude_log - torch.min(amplitude_log)) / (torch.max(amplitude_log) - torch.min(amplitude_log))
-            #     phase_normalized = (img_pha + torch.pi) / (2 * torch.pi)  # 相位从 [-π, π] 映射到 [0, 1]
-
-            #     phase_mean = torch.mean(phase_normalized)      
-            #     _, phase_binary = cv2.threshold(phase_normalized.cpu().numpy(), phase_mean.item(), 1.0, cv2.THRESH_BINARY)
-        
-            #     # 保存振幅图
-            #     fig_amp = plt.figure(figsize=(6, 6))  # 单独设置尺寸
-            #     plt.imshow(amplitude_normalized.cpu().numpy(), cmap='gray')
-            #     plt.axis('off')
-            #     amplitude_path = os.path.join(save_path, f"amplitude_channel_{25}_{j}.png")
-            #     plt.savefig(amplitude_path, bbox_inches='tight')
-            #     plt.close(fig_amp)  # 显式关闭当前figure
-
-            #     # 保存相位图
-            #     fig_phase = plt.figure(figsize=(6, 6))  # 单独设置尺寸
-            #     plt.imshow(phase_normalized.cpu().numpy(), cmap='gray')
-            #     plt.axis('off')
-            #     phase_path = os.path.join(save_path, f"phase_channel_{25}_{j}.svg")
-            #     plt.savefig(phase_path, bbox_inches='tight')
-            #     plt.close(fig_phase)  # 显式关闭当前figure     
-
-            #     center_h, center_w = 256, 256  # 得到中心坐标
-            #     half_size = 64  # 128的一半
-            #     center_region = phase_normalized[center_h - half_size:center_h + half_size,
-            #                                 center_w - half_size:center_w + half_size].cpu().numpy()
-
-            #     # 放大四倍，即输出尺寸为128*4 x 128*4 = 512x512
-            #     center_zoomed = cv2.resize(center_region, (128 * 4, 128 * 4), interpolation=cv2.INTER_NEAREST)
-
-            #     # 保存放大后的相位图
-            #     fig_zoom = plt.figure(figsize=(6, 6))
-            #     plt.imshow(center_zoomed, cmap='gray')
-            #     plt.axis('off')
-            #     zoom_path = os.path.join(save_path, f"phase_channel_zoom_{25}_{j}.svg")
-            #     plt.savefig(zoom_path, bbox_inches='tight')
-            #     plt.close(fig_zoom)
-
-            return up_LR
-        
-        # fxHR_spa_ffted = torch.fft.fftn(fxHR_spa, dim=(-2,-1))
-        # fxHR_spa_mag = torch.abs(fxHR_spa_ffted)
-        #########################################################
-        # 我需要再加一个空间域
-        # 用DSPNet的试一下
         y1 = self.spa1(fx)
-        # z1_2, z1_4, z1_8 = self.spe1(up_LR, up_LR, up_LR)
-        # feat = self.inc(torch.cat((up_LR, RGB), dim=1))
-        # x1 = self.mls1(z1_2, z1_4, z1_8, feat)
-        # fx = torch.cat((y1, x1), 1)
-        #########################################################
-        # 傅里叶域内
+
         feat_ffted = torch.fft.fftn(fx, dim=(-2,-1))
-        # # 获取幅度和相位
         feat_mag = torch.abs(feat_ffted).permute(0,2,3,1).reshape(B*H*W,-1)
-        # feat_mag = torch.abs(feat_ffted)############################################
         feat_pha = torch.angle(feat_ffted)
 
         ffted_mag = self.imnet1(feat_mag).reshape(B, C, H, W)
-        # ffted_mag = self.imnet_3_3(feat_mag)
         ffted_pha = self.imnet2(feat_pha)
 
         real = ffted_mag * torch.cos(ffted_pha)
@@ -1010,55 +678,38 @@ class Modelcave(nn.Module):
         fx = middleoutput
         #########################################################
         fx = fx.permute(0,2,3,1)
-        # B, H, W, C = fx.shape
         fx = fx.reshape(B, -1, C)
 
-        if self.unified_pos:
-            # x = self.pos.repeat(x.shape[0], 1, 1, 1).reshape(x.shape[0], self.H * self.W, self.ref * self.ref) # 不用源代码的位置信息嵌入
-            x = x.reshape(B, H*W, -1) # 用原来自带的位置编码效果就还不错的，比上面那个好
-        if fx is not None:
-            fx = torch.cat((x, fx), -1)
-            fx = self.preprocess(fx)
-        # else:
-        #     fx = self.preprocess(x)
-        #     fx = fx + self.placeholder[None, None, :]
-
-        # if T is not None:
-        #     Time_emb = timestep_embedding(T, self.n_hidden).repeat(1, x.shape[1], 1)
-        #     Time_emb = self.time_fc(Time_emb)
-        #     fx = fx + Time_emb
+        x = x.reshape(B, H*W, -1) # position
+        fx = torch.cat((x, fx), -1)
+        fx = self.preprocess(fx)
 
         for block in self.blocks:
             fx = block(fx)
         
         fx = fx.reshape(B, H, W, self.out_dim).permute(0,3,1,2)
 
-        return fx + up_LR, ffted_mag, ffted_mag
+        return fx + up_LR
 
 class Modelharvard(nn.Module):
     def __init__(self,
-                 space_dim=1,
                  n_layers=5,
                  n_hidden=256,
                  dropout=0.0,
                  n_head=8,
-                 Time_Input=False,
                  act='gelu',
                  mlp_ratio=1,
                  fun_dim=1,
                  out_dim=1,
                  slice_num=32,
                  ref=8,
-                 unified_pos=False,
                  H=85,
                  W=85,
                  ):
         super(Modelharvard, self).__init__()
-        self.__name__ = 'Transolver_2D'
         self.H = H
         self.W = W
         self.ref = ref
-        self.unified_pos = unified_pos
         self.out_dim = out_dim
 
         spa_edsr_num = 5
@@ -1068,30 +719,14 @@ class Modelharvard(nn.Module):
         self.spatial_encoder = make_edsr_baseline(n_resblocks=spa_edsr_num, n_feats=guide_dim, n_colors=hsi_dim+msi_dim)
         ##########################################################################################################################
         self.spa1 = SpaPyBlock(guide_dim, 96)
-        # # self.spe1 = SpePyBlock(32)
-        # # self.inc = DoubleConv(msi_dim+hsi_dim, 64)
-        # # self.mls1  = MLSIF(dim=64, num_blocks=1, dim_head=64, heads=64 // 64)
         # ##########################################################################################################################
         imnet_in_dim = 96
         NIR_dim = 96
         mlp_dim = []
         self.imnet1 = MLP_1(imnet_in_dim, out_dim=NIR_dim, hidden_list=mlp_dim)
-
-        # self.imnet_3_3 = MLP_3(imnet_in_dim, out_dim=NIR_dim, hidden_list=mlp_dim)
         self.imnet2 = MLP_3(imnet_in_dim, out_dim=NIR_dim, hidden_list=mlp_dim)
         ##########################################################################################################################
-        ##########################################################################################################################
-        if self.unified_pos:
-            # self.pos = self.get_grid()
-            self.preprocess = MLP(fun_dim + 2, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
-        # else:
-        #     self.preprocess = MLP(fun_dim + space_dim, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
-
-        # self.Time_Input = Time_Input
-        # self.n_hidden = n_hidden
-        # self.space_dim = space_dim
-        # if Time_Input:
-        #     self.time_fc = nn.Sequential(nn.Linear(n_hidden, n_hidden), nn.SiLU(), nn.Linear(n_hidden, n_hidden))
+        self.preprocess = MLP(fun_dim + 2, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
 
         self.blocks = nn.ModuleList([Transolver_block(num_heads=n_head, hidden_dim=n_hidden,
                                                       dropout=dropout,
@@ -1104,7 +739,6 @@ class Modelharvard(nn.Module):
                                                       last_layer=(_ == n_layers - 1))
                                      for _ in range(n_layers)])
         self.initialize_weights()
-        # self.placeholder = nn.Parameter((1 / (n_hidden)) * torch.rand(n_hidden, dtype=torch.float))
 
     def initialize_weights(self):
         self.apply(self._init_weights)
@@ -1118,54 +752,20 @@ class Modelharvard(nn.Module):
             nn.init.constant_(m.bias, 0)
             nn.init.constant_(m.weight, 1.0)
 
-    def get_grid(self, batchsize=1):
-        size_x, size_y = self.H, self.W
-        gridx = torch.tensor(np.linspace(0, 1, size_x), dtype=torch.float)
-        gridx = gridx.reshape(1, size_x, 1, 1).repeat([batchsize, 1, size_y, 1])
-        gridy = torch.tensor(np.linspace(0, 1, size_y), dtype=torch.float)
-        gridy = gridy.reshape(1, 1, size_y, 1).repeat([batchsize, size_x, 1, 1])
-        grid = torch.cat((gridx, gridy), dim=-1).cuda()  # B H W 2
+    def forward(self, x, up_LR, RGB):
 
-        gridx = torch.tensor(np.linspace(0, 1, self.ref), dtype=torch.float)
-        gridx = gridx.reshape(1, self.ref, 1, 1).repeat([batchsize, 1, self.ref, 1])
-        gridy = torch.tensor(np.linspace(0, 1, self.ref), dtype=torch.float)
-        gridy = gridy.reshape(1, 1, self.ref, 1).repeat([batchsize, self.ref, 1, 1])
-        grid_ref = torch.cat((gridx, gridy), dim=-1).cuda()  # B H W 8 8 2
-
-        pos = torch.sqrt(torch.sum((grid[:, :, :, None, None, :] - grid_ref[:, None, None, :, :, :]) ** 2, dim=-1)). \
-            reshape(batchsize, size_x, size_y, self.ref * self.ref).contiguous()
-        return pos
-
-    def forward(self, x, up_LR, RGB, HR=None, j=None, LR =None, T=None):
-
-        fx = torch.cat((up_LR, RGB), 1) # 连接 [B, C, H, W]
+        fx = torch.cat((up_LR, RGB), 1) 
         fx = self.spatial_encoder(fx) # EDSR-encoder
         B, C, H, W = fx.shape
         
-        # fxHR = torch.cat((HR, RGB), 1)
-        # fxHR_spa = self.spatial_encoder(fxHR)
         #########################################################
-     
-        # fxHR_spa_ffted = torch.fft.fftn(fxHR_spa, dim=(-2,-1))
-        # fxHR_spa_mag = torch.abs(fxHR_spa_ffted)
-        #########################################################
-        # 我需要再加一个空间域
-        # 用DSPNet的试一下
         y1 = self.spa1(fx)
-        # z1_2, z1_4, z1_8 = self.spe1(up_LR, up_LR, up_LR)
-        # feat = self.inc(torch.cat((up_LR, RGB), dim=1))
-        # x1 = self.mls1(z1_2, z1_4, z1_8, feat)
-        # fx = torch.cat((y1, x1), 1)
-        #########################################################
-        # 傅里叶域内
+
         feat_ffted = torch.fft.fftn(fx, dim=(-2,-1))
-        # # 获取幅度和相位
         feat_mag = torch.abs(feat_ffted).permute(0,2,3,1).reshape(B*H*W,-1)
-        # feat_mag = torch.abs(feat_ffted)############################################
         feat_pha = torch.angle(feat_ffted)
 
         ffted_mag = self.imnet1(feat_mag).reshape(B, C, H, W)
-        # ffted_mag = self.imnet_3_3(feat_mag)
         ffted_pha = self.imnet2(feat_pha)
 
         real = ffted_mag * torch.cos(ffted_pha)
@@ -1177,41 +777,15 @@ class Modelharvard(nn.Module):
         fx = middleoutput
         #########################################################
         fx = fx.permute(0,2,3,1)
-        # B, H, W, C = fx.shape
         fx = fx.reshape(B, -1, C)
 
-        if self.unified_pos:
-            # x = self.pos.repeat(x.shape[0], 1, 1, 1).reshape(x.shape[0], self.H * self.W, self.ref * self.ref) # 不用源代码的位置信息嵌入
-            x = x.reshape(B, H*W, -1) # 用原来自带的位置编码效果就还不错的，比上面那个好
-        if fx is not None:
-            fx = torch.cat((x, fx), -1)
-            fx = self.preprocess(fx)
-        # else:
-        #     fx = self.preprocess(x)
-        #     fx = fx + self.placeholder[None, None, :]
-
-        # if T is not None:
-        #     Time_emb = timestep_embedding(T, self.n_hidden).repeat(1, x.shape[1], 1)
-        #     Time_emb = self.time_fc(Time_emb)
-        #     fx = fx + Time_emb
+        x = x.reshape(B, H*W, -1) # position
+        fx = torch.cat((x, fx), -1)
+        fx = self.preprocess(fx)
 
         for block in self.blocks:
             fx = block(fx)
         
         fx = fx.reshape(B, H, W, self.out_dim).permute(0,3,1,2)
 
-        return fx + up_LR, ffted_mag, ffted_mag
-# from thop import profile
-# def make_model(opt):
-#     rgb = torch.Tensor(50, 3, 64, 64).cuda()
-#     ms = torch.Tensor(50, 31, 16, 16).cuda()
-#     model = Model(31,3).cuda()
-#     flops, _ = profile(model, (ms, rgb, opt.sf,))
-#     print('flops: ', flops/1e9)
-
-#     total_params = sum(p.numel() for p in model.parameters())
-#     print(f'{total_params/1e6:,} total parameters.')
-#     total_trainable_params = sum(
-#         p.numel() for p in model.parameters() if p.requires_grad)
-#     print(f'{total_trainable_params/1e6:,} training parameters.')
-#     return model
+        return fx + up_LR

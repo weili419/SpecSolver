@@ -249,5 +249,5 @@
 2025-03-29 04:40:43,586 - LOG - INFO - Epoch: 494/500 average psnr: 49.0577927  bestpsnr: 49.2526588, bestepoch: 486
 2025-03-29 04:45:32,428 - LOG - INFO - Epoch: 496/500 average psnr: 49.0922096  bestpsnr: 49.2526588, bestepoch: 486
 2025-03-29 04:50:21,652 - LOG - INFO - Epoch: 498/500 average psnr: 49.1386192  bestpsnr: 49.2526588, bestepoch: 486
-2025-03-29 04:52:24,834 - LOG - INFO - Epoch: 486 最高PSNR: 49.2526588
+2025-03-29 04:52:24,834 - LOG - INFO - Epoch: 486 BestPSNR: 49.2526588
 

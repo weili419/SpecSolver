@@ -1,0 +1,5 @@
+2025-07-05 11:35:31,084 - LOG - INFO - =======Option used=======
+2025-07-05 11:36:58,185 - LOG - INFO - =======Option used=======
+2025-07-05 11:42:02,951 - LOG - INFO - =======Option used=======
+2025-07-05 11:46:15,696 - LOG - INFO - =======Option used=======
+2025-07-05 11:49:30,167 - LOG - INFO - Epoch: 0/1000 average psnr: 41.8481686  bestpsnr: 41.8481686, bestepoch: 0

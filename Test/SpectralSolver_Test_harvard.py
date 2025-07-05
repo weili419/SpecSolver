@@ -1,12 +1,11 @@
-from data.CAVE_Dataset import cave_dataset
+from data.Harvard_Dataset import harvard_dataset
 import torch.utils.data as tud
-from torch.optim.lr_scheduler import MultiStepLR
 import time
 import argparse
 from torch.autograd import Variable
 from utils.utils import *
 from utils.SSIM import *
-from Model.SpecSolver import Modelcave
+from Model.SpecSolver import Modelharvard
 
 def custom_repr(self):
     return f'{{Tensor:{tuple(self.shape)}}} {original_repr(self)}'
@@ -17,43 +16,40 @@ torch.Tensor.__repr__ = custom_repr
 model_name = 'SpectralSolver'
 
 parser = argparse.ArgumentParser(description="PyTorch Code for HSI Fusion")
-parser.add_argument('--data_path', default='/root/data1/SSF/Dataset/Cave/Test/', type=str,
+parser.add_argument('--data_path', default='/root/data1/dataset/Harvard/Test/', type=str,
                     help='path of the testing data')
-parser.add_argument("--sizeI", default=512, type=int, help='the size of trainset')
-parser.add_argument("--testset_num", default=12, type=int, help='total number of testset')
+parser.add_argument("--sizeI", default=1024, type=int, help='the size of trainset')
+parser.add_argument("--testset_num", default=10, type=int, help='total number of testset')
 parser.add_argument("--batch_size", default=1, type=int, help='Batch size')
 parser.add_argument("--scale", default=4, type=int, help='Scaling factor')
 parser.add_argument("--sample_q", default=96, type=int, help='Scaling factor')
-parser.add_argument("--sf", default=4, type=int, help='Scaling factor')
+parser.add_argument("--sf", default=8, type=int, help='Scaling factor')
 parser.add_argument("--val", default=0, type=int, help='Scaling factor')
 parser.add_argument("--seed", default=1, type=int, help='Random seed')
 parser.add_argument("--kernel_type", default='gaussian_blur', type=str, help='Kernel type')
 opt = parser.parse_args()
 print(opt)
 
-key = 'Test.txt'
-file_path = opt.data_path + key
-file_list = loadpath(file_path, shuffle=False)
-HR_HSI, HR_MSI = prepare_data(opt.data_path, file_list, 12)
+test_HR_HSI, test_HR_MSI = prepare_data_harvard(opt.data_path, 10)
+test_dataset = harvard_dataset(opt, test_HR_HSI, test_HR_MSI, istrain=False)
+loader_test = tud.DataLoader(test_dataset, batch_size=1, num_workers=8)
 
-dataset = cave_dataset(opt, HR_HSI, HR_MSI, istrain=False)
-loader_test = tud.DataLoader(dataset, batch_size=opt.batch_size)
-
-if model_name == "SpectralSolver" :
+if model_name == "SpectralSolver":
     if opt.sf == 4:
-        bestmodel = torch.load('./Checkpoint/SpectralSolver_4x.pth')
-    model = Modelcave(n_layers=1,
-                    n_hidden=64,#64
-                    dropout=0.0,
-                    n_head=8,
-                    mlp_ratio=1,
-                    fun_dim=128,#128
-                    out_dim=31,
-                    slice_num=64,
-                    ref=8,
-                    H=512, W=512).cuda()
+        bestmodel = torch.load('./Checkpoint/Harvard/SpectralSolver_4x.pth')
+
+    model = Modelharvard(n_layers=1,
+                n_hidden=128,
+                dropout=0.0,
+                n_head=8,
+                mlp_ratio=1,
+                fun_dim=96,
+                out_dim=31,
+                slice_num=64,
+                ref=8,
+                H=1024, W=1024)
     model.load_state_dict(bestmodel)
-    print(model)
+
 num_params = sum([p.numel() for p in model.parameters() if p.requires_grad])
 print(f'[INFO] #parameters: {num_params / 1e6:.2f} M')
 
@@ -66,26 +62,27 @@ ergas_total = []
 ssim_total = []
 k = 0
 import time
+
 inference_times = []
 
 for j, (LR, RGB, HR, COORD) in enumerate(loader_test):
     with torch.no_grad():
         LR, RGB, HR, COORD = Variable(LR), Variable(RGB), Variable(HR), Variable(COORD)
         LR, RGB, HR, COORD = LR.cuda(), RGB.cuda(), HR.cuda(), COORD.cuda()
-        
+
         start_time = time.time()
+
         up_LR = F.interpolate(LR, scale_factor=opt.sf, mode='bicubic', align_corners=False)
         out = model(COORD.cuda(), up_LR.cuda(), RGB.cuda(), HR.cuda())
+
         result = out
-        
+
         end_time = time.time()
         inference_time = end_time - start_time
         inference_times.append(inference_time)
 
         result = result.cpu().data.squeeze().clamp(0, 1).numpy().transpose(1,2,0)
         HR = HR.cpu().data.squeeze().clamp(0, 1).numpy().transpose(1,2,0)
-
-        # sio.savemat('/root/data1/CAVE/experiment/SpectralSolver2/4/mat/' + file_list[j] + '.mat', {'result': result, 'GT': HR}) # cave
 
     psnr = cal_psnr(result, HR)
     psnr_total.append(psnr)
@@ -112,4 +109,4 @@ print(k)
 print("Avg PSNR = %.2f, Std PSNR = %.2f" % (avg_psnr, std_psnr))
 print("Avg SAM = %.2f, Std SAM = %.2f" % (avg_sam, std_sam))
 print("Avg ERGAS = %.2f, Std ERGAS = %.2f" % (avg_ergas, std_ergas))
-print("Avg SSIM = %.3f, Std SSIM = %.4f" % (avg_ssim, std_ssim))
+print("Avg SSIM = %.3f, Std SSIM = %.3f" % (avg_ssim, std_ssim))

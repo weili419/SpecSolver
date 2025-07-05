@@ -1,0 +1,14 @@
+----------------20250705_11_55_22----------------
+
+data_path: /root/data1/SSF/Dataset/Cave/Train/
+sizeI: 64
+batch_size: 50
+trainset_num: 20000
+sf: 4
+scale: 1
+seed: 24
+kernel_type: gaussian_blur
+model: SpecSolverCave
+
+===================================================
+

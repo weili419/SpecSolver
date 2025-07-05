@@ -20,8 +20,8 @@
 ## 📋 Roadmap & To-dos
 
 - [ ] Publish **camera-ready** version of the paper and supplementary materials
-- [ ] Release **pretrained weights** for SpecSolver
-- [ ] Open-source the complete **codebase**
+- [ ] Publication citation format
+- [ ] Open-source the complete **codebase** and **pretrained weights**
 - [x] ✅ Release **dataset** for reproducible experiments
 
 > **Tip:** ⭐ Star our repository to receive updates on releases and new features.
@@ -43,22 +43,53 @@ Semantic transformer-based solvers like SpecSolver draw inspiration from superpi
 > - 🌟 **Flexibility:** Adaptive slice shapes tuned to semantic content
 > - 🎯 **Accuracy:** State-of-the-art performance on standard SSF benchmarks
 
+
+## ✨Quick Start
+
+Follow these steps to train and test the SpecSolver models with a scaling factor of 4:
+
+1. **Train on CAVE dataset**
+
+   ```bash
+   python -m Train.SpectralSolver_Train_cave --sf 4
+
+2. **Test on CAVE dataset**
+
+   ```bash
+   python -m Test.SpectralSolver_Test_cave --sf 4
+
+3. **Train on Harvard dataset**
+
+   ```bash
+   python -m Train.SpectralSolver_Train_Harvard --sf 4
+
+4. **Test on Harvard dataset**
+
+   ```bash
+   python -m Test.SpectralSolver_Test_harvard --sf 4
+
 ---
 
 ## 📊 Public Datasets
 
-| Dataset  | Download Link                                                                                          | Extraction Code |
-|----------|--------------------------------------------------------------------------------------------------------|-----------------|
-| **CAVE**     | [Pan.baidu.com](https://pan.baidu.com/share/init?surl=CXCJfzp2yfvJZ9Lg2i-mNA)                           | `dju8`          |
-| **Harvard**  | [Pan.Quark.cn](https://pan.quark.cn/s/2d9032ebafaf)                                                 | `aque`          |
+| Dataset     | Download Link                                                                                          | Extraction Code |
+|-------------|--------------------------------------------------------------------------------------------------------|-----------------|
+| **CAVE**    | [⬇️ Download CAVE Dataset](https://pan.baidu.com/share/init?surl=CXCJfzp2yfvJZ9Lg2i-mNA)                 | `dju8`          |
+| **Harvard** | [⬇️ Download Harvard Dataset](https://pan.quark.cn/s/2d9032ebafaf)                                       | `aque`          |
 
-> Download the above datasets and use the provided codes for extraction to reproduce our experimental results.
+> 💡 **Tip:**  
+> Your folder structure should look like:
+> ```
+> ./Cavedataset/
+> ├── Train
+> └── Test
+> ```
 
 ---
 
 ## 📚 Citation
 
-If SpecSolver contributes to your research, please cite:
+If **SpecSolver** contributes to your research, please cite:
 
 ```bibtex
 
