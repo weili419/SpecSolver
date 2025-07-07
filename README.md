@@ -20,8 +20,8 @@
 ## 📋 Roadmap & To-dos
 
 - [ ] Publish **camera-ready** version of the paper and supplementary materials
-- [ ] Publication citation format
-- [ ] Open-source the complete **codebase** and **pretrained weights**
+- [ ] Publication citation format and Train code
+- [x] ✅ Open-source the complete **Test code** and **pretrained weights**
 - [x] ✅ Release **dataset** for reproducible experiments
 
 > **Tip:** ⭐ Star our repository to receive updates on releases and new features.
