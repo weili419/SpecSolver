@@ -527,7 +527,7 @@ class MLP(nn.Module):
 
 
 
-class Transolver_block(nn.Module):
+class Specsolver_block(nn.Module):
     """Transformer encoder block."""
 
     def __init__(
@@ -629,7 +629,7 @@ class Modelcave(nn.Module):
         ##########################################################################################################################
         self.preprocess = MLP(fun_dim + 2, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
 
-        self.blocks = nn.ModuleList([Transolver_block(num_heads=n_head, hidden_dim=n_hidden,
+        self.blocks = nn.ModuleList([Specsolver_block(num_heads=n_head, hidden_dim=n_hidden,
                                                       dropout=dropout,
                                                       act=act,
                                                       mlp_ratio=mlp_ratio,
@@ -728,7 +728,7 @@ class Modelharvard(nn.Module):
         ##########################################################################################################################
         self.preprocess = MLP(fun_dim + 2, n_hidden * 2, n_hidden, n_layers=0, res=False, act=act)
 
-        self.blocks = nn.ModuleList([Transolver_block(num_heads=n_head, hidden_dim=n_hidden,
+        self.blocks = nn.ModuleList([Specsolver_block(num_heads=n_head, hidden_dim=n_hidden,
                                                       dropout=dropout,
                                                       act=act,
                                                       mlp_ratio=mlp_ratio,
