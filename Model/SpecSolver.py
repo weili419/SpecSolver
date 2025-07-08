@@ -548,8 +548,6 @@ class Specsolver_block(nn.Module):
         self.ln_1 = nn.LayerNorm(hidden_dim)
         self.Attn = Semantic_Attention(hidden_dim, heads=num_heads, dim_head=hidden_dim // num_heads,
                                                          dropout=dropout, slice_num=slice_num, H=H, W=W)
-        # self.GI = Galerkin_integral(128, 8)
-        # self.PR = Progressive_Resampling_integral(dim=128, input_resolution=1024, num_heads=8, ssl=16)
 
         self.ln_2 = nn.LayerNorm(hidden_dim)
         self.mlp = MLP(hidden_dim, hidden_dim * mlp_ratio, hidden_dim, n_layers=0, res=False, act=act)
@@ -559,24 +557,6 @@ class Specsolver_block(nn.Module):
 
     def forward(self, fx):
         fx = self.Attn(self.ln_1(fx)) + fx
-        
-        # x_mid_slice = fx[0, :, :]
-        # x_mid_slice = x_mid_slice.view(512, 512, 64)
-        # cmap = plt.cm.viridis  # 使用 viridis 作为配色，类似自然色调的配色
-        # for i in range(32):
-        #     # 选择第 i 个通道
-        #     channel_image = x_mid_slice[:, :, i].cpu().detach().numpy()
-        #     channel_image = (channel_image - np.min(channel_image)) / (np.max(channel_image) - np.min(channel_image))
-        #     gamma = 4.0  # 伽马值，值越大，亮部分越亮，暗部分越暗
-        #     enhanced_image = np.power(channel_image, gamma)
-
-        #     # 显示和保存图片
-        #     plt.imshow(enhanced_image, cmap=cmap)
-        #     # plt.title(f"Channel {i+1}")
-        #     plt.axis('off')
-        #     plt.savefig(f"/root/data1/CAVE/Figure/channel_{i+1}.png", bbox_inches='tight', pad_inches=0)
-        #     plt.show()
-
         fx = self.mlp(self.ln_2(fx)) + fx
         if self.last_layer:
             return self.mlp2(self.ln_3(fx))
