@@ -3,24 +3,24 @@
   <h1>🔬 SpecSolver</h1>
   <h3>Solving Spatial–Spectral Fusion via Semantic Transformer</h3>
   
-  **Wei Li**<sup>1</sup>, **Junwei Zhu**<sup>1</sup>, **Honghui Xu**<sup>1</sup>, **Jiawei Jiang**<sup>1</sup>, **Jianwei Zheng**<sup>1</sup><br>
+  **Wei Li**<sup>1</sup>, **Junwei Zhu**<sup>1</sup>, **Honghui Xu**<sup>1</sup>, **Jiawei Jiang**<sup>1</sup>, **Jianwei Zheng**<sup>1✉️</sup><br>
   <sup>1</sup>Zhejiang University of Technology  
-  ✉️ Corresponding author: [zjw@zjut.edu.cn](mailto:zjw@zjut.edu.cn)
+  ✉️ Corresponding author
 </div>
 
 ---
 
 ## 🚀 ACMMM 2025 News _(2025-07-05)_
 
-> 🎉 **Exciting Announcement!** SpecSolver has been officially accepted to ACM Multimedia (ACMMM) 2025.
+> 🎉 **Exciting Announcement!** SpecSolver has been officially accepted to ACM Multimedia (ACMMM) 2025 ([conference paper](https://dl.acm.org/doi/10.1145/3746027.3755309)).
 > Our open-source repository is under active development—stay tuned for the camera-ready paper, code releases, and pretrained models!
 
 ---
 
 ## 📋 Roadmap & To-dos
 
-- [ ] Publish **camera-ready** version of the paper and supplementary materials
-- [ ] Publication citation format
+- [x] ✅ Publish **camera-ready** version of the paper and supplementary materials
+- [x] ✅ Publication citation format
 - [x] ✅ Open-source the complete **Train & Test code** and **pretrained weights**
 - [x] ✅ Release **dataset** for reproducible experiments
 
@@ -93,5 +93,11 @@ If **SpecSolver** contributes to your research, please cite:
 
 ```bibtex
 
-
+@inproceedings{li2025specsolver,
+  title={SpecSolver: Solving Spatial-Spectral Fusion via Semantic Transformer},
+  author={Li, Wei and Zhu, Junwei and Xu, Honghui and Jiang, Jiawei and Zheng, Jianwei},
+  booktitle={Proceedings of the 33rd ACM International Conference on Multimedia},
+  pages={1607--1616},
+  year={2025}
+}
 
